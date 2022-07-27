@@ -188,9 +188,16 @@ class Car {
  * })
  */
 function isEvenNumberAsync(number) {
-  // ✨ implement
+  let result = false;
+  if(number%2 === 0){
+    result = true
+  }
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(result)
+    }, 3000)
+  })
 }
-
 module.exports = {
   trimProperties,
   trimPropertiesMutation,
