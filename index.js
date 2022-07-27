@@ -7,7 +7,11 @@
  * trimProperties({ name: '  jane  ' }) // returns a new object { name: 'jane' }
  */
 function trimProperties(obj) {
-  // ✨ implement
+  const newObj = {}
+  for(const [key, value] of Object.entries(obj)){
+    newObj[key] = value.trim();
+  }
+  return newObj;
 }
 
 /**
@@ -19,7 +23,10 @@ function trimProperties(obj) {
  * trimPropertiesMutation({ name: '  jane  ' }) // returns the object mutated in place { name: 'jane' }
  */
 function trimPropertiesMutation(obj) {
-  // ✨ implement
+  for(const [key, value] of Object.entries(obj)){
+    obj[key] = value.trim()
+  }
+  return obj;
 }
 
 /**
@@ -31,7 +38,13 @@ function trimPropertiesMutation(obj) {
  * findLargestInteger([{ integer: 1 }, { integer: 3 }, { integer: 2 }]) // returns 3
  */
 function findLargestInteger(integers) {
-  // ✨ implement
+  return integers.reduce((answer, curr) => {
+    if(curr.integer > answer){
+      return curr.integer
+    } else {
+      return answer
+    }
+  }, integers[0].integer)
 }
 
 class Counter {
@@ -40,7 +53,9 @@ class Counter {
    * @param {number} initialNumber - the initial state of the count
    */
   constructor(initialNumber) {
-    // ✨ initialize whatever properties are needed
+    
+    this.initial = initialNumber;
+    this.timesCalled = 0;
   }
 
   /**
@@ -56,7 +71,13 @@ class Counter {
    * counter.countDown() // returns 0
    */
   countDown() {
-    // ✨ implement
+    this.timesCalled++
+    let result = this.initial - (this.timesCalled - 1);
+    if(result >= 0){
+      return result
+    } else {
+      return 0;
+    }
   }
 }
 
@@ -65,7 +86,8 @@ class Seasons {
    * [Exercise 5A] Seasons creates a seasons object
    */
   constructor() {
-    // ✨ initialize whatever properties are needed
+    this.seasons = ['spring', 'summer', 'fall', 'winter'];
+    this.position = 0;
   }
 
   /**
@@ -81,7 +103,11 @@ class Seasons {
    * seasons.next() // returns "summer"
    */
   next() {
-    // ✨ implement
+    this.position++
+    if(this.position > 3){
+      this.position = 0
+    }
+    return this.seasons[this.position]
   }
 }
 
