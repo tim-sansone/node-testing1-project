@@ -26,7 +26,7 @@ describe('[Exercise 2] trimPropertiesMutation', () => {
   test('[4] the object returned is the exact same one we passed in', () => {
     const original = { foo: '  foo ', bar: 'bar ', baz: ' baz' }
     const result = utils.trimPropertiesMutation(original)
-    expect(result).toEqual(original)
+    expect(result).toBe(original)
   })
 })
 
@@ -71,6 +71,8 @@ describe('[Exercise 5] Seasons', () => {
     seasons = new utils.Seasons() // each test must start with fresh seasons
   })
   test('[9] the FIRST call of seasons.next returns "summer"', () => {
+    expect(seasons.next).toBeInstanceOf(Function)
+    
     const firstCall = seasons.next()
     expect(firstCall).toBe('summer')
   })
@@ -109,14 +111,43 @@ describe('[Exercise 5] Seasons', () => {
 })
 
 describe('[Exercise 6] Car', () => {
-  // let focus
-  // beforeEach(() => {
-  //   focus = new utils.Car('focus', 20, 30) // each test must start with a fresh car
-  // })
-  // test('[15] driving the car returns the updated odometer', () => {})
-  // test('[16] driving the car uses gas', () => {})
-  // test('[17] refueling allows to keep driving', () => {})
-  // test('[18] adding fuel to a full tank has no effect', () => {})
+  let focus
+  beforeEach(() => {
+    focus = new utils.Car('focus', 20, 30) // each test must start with a fresh car
+  })
+  test('[15] driving the car returns the updated odometer', () => {
+    expect(focus.drive).toBeInstanceOf(Function)
+    
+    const odometer = focus.drive(100)
+    expect(odometer).toBe(100)
+  })
+  test('[16] driving the car uses gas', () => {
+    expect(focus).toHaveProperty('tank', 20)
+    
+    focus.drive(30)
+    expect(focus.tank).toBe(19)
+
+  })
+  test('[17] refueling allows to keep driving', () => {
+    expect(focus.refuel).toBeInstanceOf(Function)
+    
+    focus.drive(800)
+    expect(focus.odometer).toBe(600)
+    expect(focus.tank).toBe(0)
+
+    const fuelUp = focus.refuel(10)
+    expect(fuelUp).toBe(300)
+    expect(focus.tank).toBe(10)
+  })
+  test('[18] adding fuel to a full tank has no effect', () => {
+    expect(focus).toHaveProperty('tank', 20)
+    expect(focus).toHaveProperty('tankSize', 20)
+
+    focus.refuel(20)
+    expect(focus.tank).not.toBe(40)
+    expect(focus.tank).toBe(20)
+
+  })
 })
 
 describe('[Exercise 7] isEvenNumberAsync', () => {
